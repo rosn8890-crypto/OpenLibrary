@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0e6b57">
+  <meta name="description" content="A free online library. Read books on cybersecurity, programming and more.">
+  <title>OpenLibrary: Read Anything, Anywhere</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <script src="js/theme.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&family=Fraunces:opsz,wght@9..144,400..700&family=Literata:opsz,wght@7..72,400..700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header id="navbar" class="navbar"></header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+       <div class="hero-text">
+        <h1>Read anything, anywhere.</h1>
+        <p class="lead">Free books on cybersecurity, programming, self-improvement and more. Every book is free to read, and you always pick up exactly where you stopped.</p>
+
+        <form id="searchForm" class="search-box">
+          <input id="searchInput" type="search" placeholder="Search by title or author" aria-label="Search books">
+          <button class="btn" type="submit">Search</button>
+        </form>
+       </div>
+
+       <!-- Hero picture. To use your own photo, change the file name in the src below. -->
+       <div class="hero-art">
+         <img src="images/hero-library.svg" width="800" height="640" alt="A quiet library at night with tall bookshelves, a moonlit window and a reading lamp">
+       </div>
+      </div>
+
+      <!-- The shelf is filled with real books from the database -->
+      <div class="container">
+        <div class="shelf" id="shelf" aria-label="Books on the shelf"></div>
+      </div>
+    </section>
+
+    <section class="section container">
+      <div class="section-head"><h2>Browse by topic</h2><a href="categories.html?slug=All">See all topics</a></div>
+      <div class="topics" id="topicGrid"></div>
+    </section>
+
+    <section class="section container" id="continueSection" hidden>
+      <div class="section-head"><h2>Pick up where you stopped</h2><a href="dashboard.html">Open dashboard</a></div>
+      <div class="grid" id="continueList"></div>
+    </section>
+
+    <section class="section container">
+      <div class="section-head"><h2>Latest books</h2><a href="categories.html?slug=All">Browse all books</a></div>
+      <div class="grid" id="bookGrid"><p class="empty">Loading books...</p></div>
+    </section>
+
+    <section class="section container">
+      <div class="features">
+        <figure><img src="images/feature-progress.svg" width="600" height="450" loading="lazy" alt="A laptop and a phone showing the same page, joined by a bookmark">
+          <h3>Your place is always saved</h3><p>Your page, scroll position and progress sync automatically, so you can switch devices without losing your place.</p></figure>
+        <figure><img src="images/feature-modes.svg" width="600" height="450" loading="lazy" alt="Three reading pages in dark, sepia and light modes">
+          <h3>Built for focused reading</h3><p>Dark, sepia and light reading modes, two font styles, adjustable text size and a distraction-free layout.</p></figure>
+        <figure><img src="images/feature-library.svg" width="600" height="450" loading="lazy" alt="A bookshelf with a new book being added">
+          <h3>A library that keeps growing</h3><p>Readers add new books every week, and every upload appears in the library straight away.</p></figure>
+      </div>
+    </section>
+
+  </main>
+
+  <footer id="footer" class="footer"></footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>

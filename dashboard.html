@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0e6b57">
+  <title>Dashboard - OpenLibrary</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <script src="js/theme.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&family=Fraunces:opsz,wght@9..144,400..700&family=Literata:opsz,wght@7..72,400..700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header id="navbar" class="navbar"></header>
+  <main class="container">
+    <div class="page-head"><h1>Your reading dashboard</h1><p>Everything you started, finished and uploaded.</p></div>
+
+    <div class="stats">
+      <div><b id="statStarted">0</b><span>Books started</span></div>
+      <div><b id="statFinished">0</b><span>Books finished</span></div>
+      <div><b id="statAverage">0%</b><span>Average progress</span></div>
+    </div>
+
+    <section class="section">
+      <div class="section-head"><h2>Reading now</h2></div>
+      <div id="readingNow"><p class="empty">Loading...</p></div>
+    </section>
+    <section class="section">
+      <div class="section-head"><h2>Finished</h2></div>
+      <div id="finishedList"></div>
+    </section>
+    <section class="section">
+      <div class="section-head"><h2>My uploads</h2><a href="upload.html">Upload a book</a></div>
+      <div id="myUploads"></div>
+    </section>
+  </main>
+  <footer id="footer" class="footer"></footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

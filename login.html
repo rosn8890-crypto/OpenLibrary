@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0e6b57">
+  <title>Log in - OpenLibrary</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <script src="js/theme.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&family=Fraunces:opsz,wght@9..144,400..700&family=Literata:opsz,wght@7..72,400..700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header id="navbar" class="navbar"></header>
+  <main class="container narrow">
+    <div class="page-head"><h1>Welcome to OpenLibrary</h1><p>Log in to save your progress and your favorite books.</p></div>
+
+    <div class="panel">
+      <div class="auth-tabs">
+        <button class="btn btn-sm" id="tabLogin" type="button">Log in</button>
+        <button class="btn btn-sm btn-outline" id="tabSignup" type="button">Create account</button>
+      </div>
+
+      <form id="loginForm">
+        <div class="field"><label for="loginEmail">Email</label><input id="loginEmail" type="email" required autocomplete="email"></div>
+        <div class="field"><label for="loginPassword">Password</label><input id="loginPassword" type="password" required autocomplete="current-password"></div>
+        <button class="btn" type="submit">Log in</button>
+      </form>
+
+      <form id="signupForm" hidden>
+        <div class="field"><label for="signupEmail">Email</label><input id="signupEmail" type="email" required autocomplete="email"></div>
+        <div class="field"><label for="signupPassword">Password (at least 6 characters)</label><input id="signupPassword" type="password" required minlength="6" autocomplete="new-password"></div>
+        <button class="btn" type="submit">Create account</button>
+      </form>
+
+      <div id="authMsg"></div>
+    </div>
+  </main>
+  <footer id="footer" class="footer"></footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/login.js"></script>
+</body>
+</html>
