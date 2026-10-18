@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0e6b57">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="OpenLibrary">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="images/icon-192.png">
+  <title>Upload a book - OpenLibrary</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <script src="js/theme.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&family=Fraunces:opsz,wght@9..144,400..700&family=Literata:opsz,wght@7..72,400..700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header id="navbar" class="navbar"></header>
+  <main class="container narrow">
+    <div class="page-head">
+      <h1>Upload a book</h1>
+      <p>Share a book with everyone. It appears in the library right away.</p>
+    </div>
+
+    <form id="uploadForm" class="panel">
+      <div class="field"><label for="title">Title</label><input id="title" required maxlength="150"></div>
+      <div class="row2">
+        <div class="field"><label for="author">Author</label><input id="author" required maxlength="100"></div>
+        <div class="field"><label for="category">Category</label><select id="category" required></select></div>
+      </div>
+      <div class="field"><label for="description">Short description</label><textarea id="description" maxlength="600"></textarea></div>
+
+      <div class="field">
+        <label for="pdfFile">PDF file (max 50 MB)</label>
+        <input id="pdfFile" type="file" accept="application/pdf" required>
+        <p class="hint">Your file is stored exactly as you upload it.</p>
+      </div>
+      <div class="field">
+        <label for="coverFile">Cover image (optional, max 5 MB)</label>
+        <input id="coverFile" type="file" accept="image/png,image/jpeg,image/webp">
+        <p class="hint">Use a tall image (2:3, for example 1200 x 1800 px) for the sharpest cover.</p>
+      </div>
+
+      <button class="btn" id="submitBtn" type="submit">Upload book</button>
+      <div id="uploadMsg"></div>
+    </form>
+  </main>
+  <footer id="footer" class="footer"></footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/pwa.js"></script>
+  <script src="js/upload.js"></script>
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0e6b57">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="OpenLibrary">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="images/icon-192.png">
+  <title>Reading - OpenLibrary</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <script src="js/theme.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&family=Fraunces:opsz,wght@9..144,400..700&family=Literata:opsz,wght@7..72,400..700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="reader-body theme-dark" id="readerBody">
+  <header class="reader-bar" id="readerBar">
+    <div class="reader-bar-left">
+      <a href="index.html" id="backLink" aria-label="Back to the book page" title="Exit reader">‹ Back</a>
+      <div class="reader-title-wrap">
+        <h1 class="reader-title" id="readerTitle">Loading...</h1>
+        <span class="reading-timer-badge" id="timerBadge" title="Time spent reading this session">⏱️ <span id="timerText">0m 00s</span></span>
+      </div>
+    </div>
+
+    <!-- Center / Quick navigation -->
+    <div class="reader-bar-center">
+      <div class="page-jump-box">
+        <span>Page</span>
+        <input type="number" id="pageJumpInput" min="1" value="1" aria-label="Jump to page">
+        <span id="pageTotalText">of 1</span>
+      </div>
+    </div>
+
+    <!-- Right / Focus & Reading tools -->
+    <div class="reader-tools" id="readerTools">
+      <!-- Ambient Audio Menu -->
+      <div class="tool-dropdown-wrap">
+        <button id="ambientMenuBtn" class="tool-btn" aria-label="Ambient focus sounds" title="Ambient Focus Sounds">
+          🎧 <span class="hide-mobile">Sounds</span>
+        </button>
+        <div class="tool-dropdown-menu" id="ambientMenu" hidden>
+          <div class="dropdown-header">Focus Soundscape</div>
+          <div class="ambient-grid">
+            <button class="ambient-opt active" data-sound="off">🔇 Off</button>
+            <button class="ambient-opt" data-sound="rain">🌧️ Rain</button>
+            <button class="ambient-opt" data-sound="waves">🌊 Ocean</button>
+            <button class="ambient-opt" data-sound="campfire">🔥 Fireplace</button>
+            <button class="ambient-opt" data-sound="wind">🍃 Breeze</button>
+            <button class="ambient-opt" data-sound="cafe">☕ Cafe</button>
+            <button class="ambient-opt" data-sound="noise">⚪ White Noise</button>
+          </div>
+          <div class="volume-slider-row">
+            <label for="ambientVol">Volume</label>
+            <input type="range" id="ambientVol" min="0" max="1" step="0.05" value="0.5">
+          </div>
+        </div>
+      </div>
+
+      <!-- Text to speech read aloud -->
+      <div class="tool-dropdown-wrap">
+        <button id="ttsPlayBtn" class="tool-btn" aria-label="Read aloud audio" title="Listen / Read Aloud (Web Speech)">
+          🔊 <span class="hide-mobile">Listen</span>
+        </button>
+        <div class="tool-dropdown-menu tts-menu" id="ttsMenu" hidden>
+          <div class="dropdown-header">Audiobook Narration</div>
+          <div class="tts-status" id="ttsStatusText">Ready to read current page</div>
+          <div class="tts-controls-row">
+            <button class="btn btn-sm" id="ttsStartStopBtn">▶ Start Reading</button>
+            <button class="btn btn-outline btn-sm" id="ttsPauseBtn" disabled>⏸ Pause</button>
+          </div>
+          <div class="field" style="margin-top:.7rem;margin-bottom:.5rem;">
+            <label for="ttsSpeedSelect" style="font-size:.8rem;">Reading Speed</label>
+            <select id="ttsSpeedSelect">
+              <option value="0.8">0.8x (Slower)</option>
+              <option value="1.0" selected>1.0x (Normal)</option>
+              <option value="1.2">1.2x (Brisk)</option>
+              <option value="1.5">1.5x (Fast)</option>
+              <option value="2.0">2.0x (Double)</option>
+            </select>
+          </div>
+          <div class="field" style="margin-bottom:.5rem;">
+            <label for="ttsVoiceSelect" style="font-size:.8rem;">Voice</label>
+            <select id="ttsVoiceSelect">
+              <option value="">Default browser voice</option>
+            </select>
+          </div>
+          <label class="check-label" style="font-size:.82rem;">
+            <input type="checkbox" id="ttsAutoTurnCheck" checked> Auto-turn to next page when done
+          </label>
+        </div>
+      </div>
+
+      <!-- Focus Reading Ruler -->
+      <button id="rulerToggleBtn" class="tool-btn" aria-label="Toggle Reading Ruler" title="Reading Ruler Guide (Shortcut: R)">
+        📏 <span class="hide-mobile">Ruler</span>
+      </button>
+
+      <!-- RSVP Speed Reader -->
+      <button id="speedReaderBtn" class="tool-btn" aria-label="Launch Speed Reader" title="Bionic Speed Reader (Shortcut: S)">
+        ⚡ <span class="hide-mobile">Speed</span>
+      </button>
+
+      <!-- Bookmark toggle -->
+      <button id="bookmarkBtn" class="tool-btn" aria-label="Bookmark this page" title="Bookmark page (Shortcut: B)">
+        🔖 <span id="bookmarkLabel" class="hide-mobile">Bookmark</span>
+      </button>
+
+      <!-- Bookmarks Drawer button -->
+      <button id="openBookmarksDrawerBtn" class="tool-btn" aria-label="View saved bookmarks" title="View all bookmarks">
+        📋
+      </button>
+
+      <!-- Zoom controls -->
+      <button id="zoomDown" class="tool-btn icon-only" aria-label="Zoom out" title="Zoom out (−)">−</button>
+      <button id="zoomUp" class="tool-btn icon-only" aria-label="Zoom in" title="Zoom in (+)">+</button>
+
+      <!-- Reading Themes -->
+      <div class="tool-dropdown-wrap">
+        <button id="themeMenuBtn" class="tool-btn" aria-label="Reading Themes" title="Theme and Colors">
+          🎨
+        </button>
+        <div class="tool-dropdown-menu themes-menu" id="themeMenu" hidden>
+          <div class="dropdown-header">Reading Palette</div>
+          <div class="theme-options">
+            <button class="theme-chip" data-theme="dark"><span class="chip-dot" style="background:#0f1a16;border:1px solid #45c9a0;"></span> Dark (Cozy)</button>
+            <button class="theme-chip" data-theme="sepia"><span class="chip-dot" style="background:#f3ead6;border:1px solid #c48a2c;"></span> Sepia (Warm Paper)</button>
+            <button class="theme-chip" data-theme="light"><span class="chip-dot" style="background:#ffffff;border:1px solid #888;"></span> Light (Clean)</button>
+            <button class="theme-chip" data-theme="oled"><span class="chip-dot" style="background:#000000;border:1px solid #555;"></span> Midnight (OLED Black)</button>
+            <button class="theme-chip" data-theme="forest"><span class="chip-dot" style="background:#13261f;border:1px solid #5abf9b;"></span> Forest (Sage)</button>
+          </div>
+          <div class="dropdown-divider"></div>
+          <div class="volume-slider-row" style="margin-top:.4rem;">
+            <label for="pageDimmer">Paper Dimmer</label>
+            <input type="range" id="pageDimmer" min="0.4" max="1" step="0.05" value="1" title="Adjust page brightness">
+          </div>
+        </div>
+      </div>
+
+      <!-- Zen Focus Mode -->
+      <button id="focusBtn" class="tool-btn focus-pill" aria-label="Toggle focus mode" title="Zen Distraction-Free Mode (Shortcut: F)">
+        🧘 Focus
+      </button>
+
+      <!-- Fullscreen -->
+      <button id="fullscreenBtn" class="tool-btn icon-only" aria-label="Toggle Fullscreen" title="Fullscreen (Shortcut: Z)">
+        ⛶
+      </button>
+
+      <!-- Keyboard Help -->
+      <button id="shortcutsBtn" class="tool-btn icon-only" aria-label="Keyboard Shortcuts" title="Keyboard Shortcuts (?)">
+        ?
+      </button>
+    </div>
+  </header>
+
+  <!-- Reading Progress Bar -->
+  <div class="reader-progress" id="readerProgress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+    <span id="progressFill"></span>
+  </div>
+
+  <main class="reader-main" id="readerMain">
+    <div class="reader-stage" id="readerStage">
+      <!-- Left / right invisible zones: tap or click to turn pages. The middle toggles focus mode. -->
+      <button class="tap-zone tap-left" id="tapPrev" aria-label="Previous page"></button>
+      <button class="tap-zone tap-mid" id="tapFocus" aria-label="Toggle focus mode"></button>
+      <button class="tap-zone tap-right" id="tapNext" aria-label="Next page"></button>
+
+      <div class="page-frame" id="pageFrame"></div>
+
+      <div class="stage-spinner" id="stageSpinner" hidden>
+        <span class="spinner"></span>
+        <p>Loading HD page...</p>
+      </div>
+
+      <div class="stage-error" id="stageError" hidden>
+        <p id="stageErrorText">Something went wrong.</p>
+        <button class="btn" id="retryBtn">Retry</button>
+      </div>
+    </div>
+
+    <div class="reader-notice" id="notice" hidden></div>
+    <div class="swipe-hint" id="swipeHint" hidden>Swipe, tap sides, or use &larr; &rarr; arrow keys to turn pages &bull; Double click words for dictionary</div>
+  </main>
+
+  <footer class="reader-foot" id="readerFoot">
+    <button id="prevBtn" disabled aria-label="Previous page">‹ Prev</button>
+    <div class="foot-center">
+      <span id="pageInfo">Page 1</span>
+      <span class="time-est" id="timeEst">~0 mins left</span>
+    </div>
+    <button id="nextBtn" disabled aria-label="Next page">Next ›</button>
+    <span id="saveState"></span>
+  </footer>
+
+  <!-- Bookmarks Drawer Sidebar -->
+  <div class="bookmarks-drawer-backdrop" id="bookmarksBackdrop" hidden>
+    <aside class="bookmarks-drawer" id="bookmarksDrawer">
+      <div class="drawer-head">
+        <h3>🔖 Bookmarks & Notes</h3>
+        <button class="modal-close" id="closeDrawerBtn">&times;</button>
+      </div>
+      <div class="drawer-add">
+        <input type="text" id="bmNoteInput" placeholder="Add a note for page current...">
+        <button class="btn btn-sm" id="bmSaveCurrentBtn">Save Page</button>
+      </div>
+      <div class="drawer-list" id="bookmarksList">
+        <p class="empty" style="text-align:center;">No bookmarks saved for this book yet.</p>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Keyboard Shortcuts Cheat Sheet Modal -->
+  <div class="modal-backdrop" id="shortcutsModal" hidden>
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3 style="margin:0;font-size:1.15rem;">⌨️ Reader Keyboard Shortcuts</h3>
+        <button class="modal-close" id="closeShortcutsBtn">&times;</button>
+      </div>
+      <div class="modal-body" style="padding:1rem 0;">
+        <table class="shortcuts-table">
+          <tr><td><kbd>→</kbd> / <kbd>Space</kbd></td><td>Next Page</td></tr>
+          <tr><td><kbd>←</kbd></td><td>Previous Page</td></tr>
+          <tr><td><kbd>F</kbd></td><td>Toggle Zen Focus Mode</td></tr>
+          <tr><td><kbd>Z</kbd></td><td>Toggle Fullscreen Mode</td></tr>
+          <tr><td><kbd>R</kbd></td><td>Toggle Reading Ruler (Line Guide)</td></tr>
+          <tr><td><kbd>S</kbd></td><td>Open RSVP Speed Reader</td></tr>
+          <tr><td><kbd>B</kbd></td><td>Bookmark Current Page</td></tr>
+          <tr><td><kbd>A</kbd></td><td>Play / Pause Ambient Sound</td></tr>
+          <tr><td><kbd>+</kbd> / <kbd>−</kbd></td><td>Zoom In / Out</td></tr>
+          <tr><td><kbd>Esc</kbd></td><td>Exit Zen / Close Popups</td></tr>
+          <tr><td><kbd>?</kbd></td><td>Show this Shortcuts Cheat Sheet</td></tr>
+        </table>
+      </div>
+      <div class="modal-foot" style="text-align:right;">
+        <button class="btn btn-outline btn-sm" id="closeShortcutsBtn2">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PDF.js library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/ambient.js"></script>
+  <script src="js/tts.js"></script>
+  <script src="js/focus-tools.js"></script>
+  <script src="js/pwa.js"></script>
+  <script src="js/reader.js"></script>
+</body>
+</html>
