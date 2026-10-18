@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
   <meta name="theme-color" content="#0e6b57">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -23,25 +23,32 @@
       <a href="index.html" id="backLink" aria-label="Back to the book page" title="Exit reader">‹ Back</a>
       <div class="reader-title-wrap">
         <h1 class="reader-title" id="readerTitle">Loading...</h1>
-        <span class="reading-timer-badge" id="timerBadge" title="Time spent reading this session">⏱️ <span id="timerText">0m 00s</span></span>
+        <span class="reading-timer-badge hide-mobile" id="timerBadge" title="Time spent reading this session">⏱️ <span id="timerText">0m 00s</span></span>
       </div>
     </div>
 
-    <!-- Center / Quick navigation -->
+    <!-- Center: Fit Mode & Zoom Stepper (Crucial for Mobile Zoom & Comfort) -->
     <div class="reader-bar-center">
-      <div class="page-jump-box">
-        <span>Page</span>
-        <input type="number" id="pageJumpInput" min="1" value="1" aria-label="Jump to page">
-        <span id="pageTotalText">of 1</span>
+      <div class="zoom-toolbar">
+        <button id="fitModeBtn" class="tool-btn fit-toggle-btn" title="Toggle Fit Width / Fit Page">
+          <span id="fitModeIcon">↔</span> <span id="fitModeText">Width</span>
+        </button>
+        <div class="zoom-stepper">
+          <button id="zoomDown" class="tool-btn icon-only" aria-label="Zoom out" title="Zoom out (−)">−</button>
+          <button id="zoomResetBtn" class="zoom-val-btn" title="Click for zoom options">
+            <span id="zoomValText">120%</span>
+          </button>
+          <button id="zoomUp" class="tool-btn icon-only" aria-label="Zoom in" title="Zoom in (+)">+</button>
+        </div>
       </div>
     </div>
 
-    <!-- Right / Focus & Reading tools -->
+    <!-- Right: Focus & Reading tools -->
     <div class="reader-tools" id="readerTools">
-      <!-- Ambient Audio Menu -->
-      <div class="tool-dropdown-wrap">
+      <!-- Ambient Audio Menu (Desktop) -->
+      <div class="tool-dropdown-wrap desktop-only-tool">
         <button id="ambientMenuBtn" class="tool-btn" aria-label="Ambient focus sounds" title="Ambient Focus Sounds">
-          🎧 <span class="hide-mobile">Sounds</span>
+          🎧 <span>Sounds</span>
         </button>
         <div class="tool-dropdown-menu" id="ambientMenu" hidden>
           <div class="dropdown-header">Focus Soundscape</div>
@@ -61,10 +68,10 @@
         </div>
       </div>
 
-      <!-- Text to speech read aloud -->
-      <div class="tool-dropdown-wrap">
+      <!-- Text to speech read aloud (Desktop) -->
+      <div class="tool-dropdown-wrap desktop-only-tool">
         <button id="ttsPlayBtn" class="tool-btn" aria-label="Read aloud audio" title="Listen / Read Aloud (Web Speech)">
-          🔊 <span class="hide-mobile">Listen</span>
+          🔊 <span>Listen</span>
         </button>
         <div class="tool-dropdown-menu tts-menu" id="ttsMenu" hidden>
           <div class="dropdown-header">Audiobook Narration</div>
@@ -95,32 +102,28 @@
         </div>
       </div>
 
-      <!-- Focus Reading Ruler -->
-      <button id="rulerToggleBtn" class="tool-btn" aria-label="Toggle Reading Ruler" title="Reading Ruler Guide (Shortcut: R)">
-        📏 <span class="hide-mobile">Ruler</span>
+      <!-- Reading Ruler (Desktop) -->
+      <button id="rulerToggleBtn" class="tool-btn desktop-only-tool" aria-label="Toggle Reading Ruler" title="Reading Ruler Guide (Shortcut: R)">
+        📏 <span>Ruler</span>
       </button>
 
-      <!-- RSVP Speed Reader -->
-      <button id="speedReaderBtn" class="tool-btn" aria-label="Launch Speed Reader" title="Bionic Speed Reader (Shortcut: S)">
-        ⚡ <span class="hide-mobile">Speed</span>
+      <!-- RSVP Speed Reader (Desktop) -->
+      <button id="speedReaderBtn" class="tool-btn desktop-only-tool" aria-label="Launch Speed Reader" title="Bionic Speed Reader (Shortcut: S)">
+        ⚡ <span>Speed</span>
       </button>
 
-      <!-- Bookmark toggle -->
-      <button id="bookmarkBtn" class="tool-btn" aria-label="Bookmark this page" title="Bookmark page (Shortcut: B)">
-        🔖 <span id="bookmarkLabel" class="hide-mobile">Bookmark</span>
+      <!-- Bookmark toggle (Desktop) -->
+      <button id="bookmarkBtn" class="tool-btn desktop-only-tool" aria-label="Bookmark this page" title="Bookmark page (Shortcut: B)">
+        🔖 <span id="bookmarkLabel">Bookmark</span>
       </button>
 
-      <!-- Bookmarks Drawer button -->
-      <button id="openBookmarksDrawerBtn" class="tool-btn" aria-label="View saved bookmarks" title="View all bookmarks">
+      <!-- Bookmarks Drawer button (Desktop) -->
+      <button id="openBookmarksDrawerBtn" class="tool-btn desktop-only-tool" aria-label="View saved bookmarks" title="View all bookmarks">
         📋
       </button>
 
-      <!-- Zoom controls -->
-      <button id="zoomDown" class="tool-btn icon-only" aria-label="Zoom out" title="Zoom out (−)">−</button>
-      <button id="zoomUp" class="tool-btn icon-only" aria-label="Zoom in" title="Zoom in (+)">+</button>
-
-      <!-- Reading Themes -->
-      <div class="tool-dropdown-wrap">
+      <!-- Reading Themes (Desktop) -->
+      <div class="tool-dropdown-wrap desktop-only-tool">
         <button id="themeMenuBtn" class="tool-btn" aria-label="Reading Themes" title="Theme and Colors">
           🎨
         </button>
@@ -141,18 +144,23 @@
         </div>
       </div>
 
-      <!-- Zen Focus Mode -->
-      <button id="focusBtn" class="tool-btn focus-pill" aria-label="Toggle focus mode" title="Zen Distraction-Free Mode (Shortcut: F)">
-        🧘 Focus
+      <!-- Mobile Tools Trigger Button (Appears on Mobile to open clean Sheet) -->
+      <button id="mobileToolsBtn" class="tool-btn mobile-only-btn" aria-label="Reading Tools Menu" title="Reader Tools">
+        ⚙️ <span style="font-size:.82rem;">Tools</span>
       </button>
 
-      <!-- Fullscreen -->
-      <button id="fullscreenBtn" class="tool-btn icon-only" aria-label="Toggle Fullscreen" title="Fullscreen (Shortcut: Z)">
+      <!-- Zen Focus Mode (Visible on Mobile & Desktop) -->
+      <button id="focusBtn" class="tool-btn focus-pill" aria-label="Toggle focus mode" title="Zen Distraction-Free Mode (Shortcut: F)">
+        🧘 <span class="hide-mobile">Focus</span>
+      </button>
+
+      <!-- Fullscreen (Desktop) -->
+      <button id="fullscreenBtn" class="tool-btn icon-only desktop-only-tool" aria-label="Toggle Fullscreen" title="Fullscreen (Shortcut: Z)">
         ⛶
       </button>
 
-      <!-- Keyboard Help -->
-      <button id="shortcutsBtn" class="tool-btn icon-only" aria-label="Keyboard Shortcuts" title="Keyboard Shortcuts (?)">
+      <!-- Keyboard Help (Desktop) -->
+      <button id="shortcutsBtn" class="tool-btn icon-only desktop-only-tool" aria-label="Keyboard Shortcuts" title="Keyboard Shortcuts (?)">
         ?
       </button>
     </div>
@@ -165,9 +173,8 @@
 
   <main class="reader-main" id="readerMain">
     <div class="reader-stage" id="readerStage">
-      <!-- Left / right invisible zones: tap or click to turn pages. The middle toggles focus mode. -->
+      <!-- Edge zones: tap narrow left/right sides to turn pages without blocking vertical scrolling! -->
       <button class="tap-zone tap-left" id="tapPrev" aria-label="Previous page"></button>
-      <button class="tap-zone tap-mid" id="tapFocus" aria-label="Toggle focus mode"></button>
       <button class="tap-zone tap-right" id="tapNext" aria-label="Next page"></button>
 
       <div class="page-frame" id="pageFrame"></div>
@@ -184,18 +191,88 @@
     </div>
 
     <div class="reader-notice" id="notice" hidden></div>
-    <div class="swipe-hint" id="swipeHint" hidden>Swipe, tap sides, or use &larr; &rarr; arrow keys to turn pages &bull; Double click words for dictionary</div>
+    <div class="swipe-hint" id="swipeHint" hidden>Swipe or tap sides to turn pages &bull; Double-tap words for dictionary</div>
   </main>
 
+  <!-- Reader Foot Bar: Big touch-friendly buttons for Mobile -->
   <footer class="reader-foot" id="readerFoot">
     <button id="prevBtn" disabled aria-label="Previous page">‹ Prev</button>
     <div class="foot-center">
-      <span id="pageInfo">Page 1</span>
-      <span class="time-est" id="timeEst">~0 mins left</span>
+      <div class="page-jump-box">
+        <input type="number" id="pageJumpInput" min="1" value="1" aria-label="Page number">
+        <span id="pageTotalText">of 1</span>
+      </div>
+      <span class="time-est hide-mobile" id="timeEst">~0m left</span>
     </div>
     <button id="nextBtn" disabled aria-label="Next page">Next ›</button>
-    <span id="saveState"></span>
+    <span id="saveState" class="hide-mobile"></span>
   </footer>
+
+  <!-- Mobile Tools Bottom Sheet / Drawer -->
+  <div class="modal-backdrop" id="mobileToolsModal" hidden>
+    <div class="mobile-tools-sheet">
+      <div class="sheet-head">
+        <h3 style="margin:0;font-size:1.1rem;">🛠️ Reader Tools & Settings</h3>
+        <button class="modal-close" id="closeMobileToolsBtn">&times;</button>
+      </div>
+      <div class="sheet-body">
+        <!-- Fit & Zoom row in sheet -->
+        <div class="sheet-section">
+          <div class="sheet-section-title">Page Sizing & Zoom</div>
+          <div class="sheet-btn-row">
+            <button class="btn btn-sm btn-outline sheet-opt-btn" id="mFitWidthBtn">↔ Fit Width (eBook)</button>
+            <button class="btn btn-sm btn-outline sheet-opt-btn" id="mFitPageBtn">↕ Fit Entire Page</button>
+          </div>
+          <div class="sheet-btn-row" style="margin-top:.5rem;">
+            <button class="btn btn-sm btn-outline zoom-preset-btn" data-zoom="100">100%</button>
+            <button class="btn btn-sm btn-outline zoom-preset-btn" data-zoom="120">120%</button>
+            <button class="btn btn-sm btn-outline zoom-preset-btn" data-zoom="140">140%</button>
+            <button class="btn btn-sm btn-outline zoom-preset-btn" data-zoom="160">160%</button>
+            <button class="btn btn-sm btn-outline zoom-preset-btn" data-zoom="200">200%</button>
+          </div>
+        </div>
+
+        <!-- Ambient & Audio -->
+        <div class="sheet-section">
+          <div class="sheet-section-title">Focus Soundscape</div>
+          <div class="ambient-grid">
+            <button class="ambient-opt active" data-sound="off">🔇 Off</button>
+            <button class="ambient-opt" data-sound="rain">🌧️ Rain</button>
+            <button class="ambient-opt" data-sound="waves">🌊 Ocean</button>
+            <button class="ambient-opt" data-sound="campfire">🔥 Fireplace</button>
+            <button class="ambient-opt" data-sound="wind">🍃 Breeze</button>
+            <button class="ambient-opt" data-sound="cafe">☕ Cafe</button>
+            <button class="ambient-opt" data-sound="noise">⚪ White Noise</button>
+          </div>
+        </div>
+
+        <!-- Narration & Tools -->
+        <div class="sheet-section">
+          <div class="sheet-section-title">Interactive Reading Tools</div>
+          <div class="sheet-grid-2">
+            <button class="btn btn-outline btn-sm sheet-tool-btn" id="mAudiobookBtn">🔊 Read Aloud</button>
+            <button class="btn btn-outline btn-sm sheet-tool-btn" id="mRulerBtn">📏 Reading Ruler</button>
+            <button class="btn btn-outline btn-sm sheet-tool-btn" id="mSpeedBtn">⚡ Speed Reader</button>
+            <button class="btn btn-outline btn-sm sheet-tool-btn" id="mBookmarkBtn">🔖 Bookmark Page</button>
+            <button class="btn btn-outline btn-sm sheet-tool-btn" id="mBookmarksListBtn">📋 View Bookmarks</button>
+            <button class="btn btn-outline btn-sm sheet-tool-btn" id="mFullscreenBtn">⛶ Fullscreen</button>
+          </div>
+        </div>
+
+        <!-- Themes -->
+        <div class="sheet-section">
+          <div class="sheet-section-title">Reading Palette</div>
+          <div class="theme-options">
+            <button class="theme-chip" data-theme="dark"><span class="chip-dot" style="background:#0f1a16;border:1px solid #45c9a0;"></span> Dark (Cozy)</button>
+            <button class="theme-chip" data-theme="sepia"><span class="chip-dot" style="background:#f3ead6;border:1px solid #c48a2c;"></span> Sepia (Warm Paper)</button>
+            <button class="theme-chip" data-theme="light"><span class="chip-dot" style="background:#ffffff;border:1px solid #888;"></span> Light (Clean)</button>
+            <button class="theme-chip" data-theme="oled"><span class="chip-dot" style="background:#000000;border:1px solid #555;"></span> Midnight (OLED Black)</button>
+            <button class="theme-chip" data-theme="forest"><span class="chip-dot" style="background:#13261f;border:1px solid #5abf9b;"></span> Forest (Sage)</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Bookmarks Drawer Sidebar -->
   <div class="bookmarks-drawer-backdrop" id="bookmarksBackdrop" hidden>
@@ -205,8 +282,8 @@
         <button class="modal-close" id="closeDrawerBtn">&times;</button>
       </div>
       <div class="drawer-add">
-        <input type="text" id="bmNoteInput" placeholder="Add a note for page current...">
-        <button class="btn btn-sm" id="bmSaveCurrentBtn">Save Page</button>
+        <input type="text" id="bmNoteInput" placeholder="Add note for current page...">
+        <button class="btn btn-sm" id="bmSaveCurrentBtn">Save</button>
       </div>
       <div class="drawer-list" id="bookmarksList">
         <p class="empty" style="text-align:center;">No bookmarks saved for this book yet.</p>
@@ -225,6 +302,7 @@
         <table class="shortcuts-table">
           <tr><td><kbd>→</kbd> / <kbd>Space</kbd></td><td>Next Page</td></tr>
           <tr><td><kbd>←</kbd></td><td>Previous Page</td></tr>
+          <tr><td><kbd>W</kbd></td><td>Toggle Fit Width / Fit Page</td></tr>
           <tr><td><kbd>F</kbd></td><td>Toggle Zen Focus Mode</td></tr>
           <tr><td><kbd>Z</kbd></td><td>Toggle Fullscreen Mode</td></tr>
           <tr><td><kbd>R</kbd></td><td>Toggle Reading Ruler (Line Guide)</td></tr>
@@ -233,7 +311,7 @@
           <tr><td><kbd>A</kbd></td><td>Play / Pause Ambient Sound</td></tr>
           <tr><td><kbd>+</kbd> / <kbd>−</kbd></td><td>Zoom In / Out</td></tr>
           <tr><td><kbd>Esc</kbd></td><td>Exit Zen / Close Popups</td></tr>
-          <tr><td><kbd>?</kbd></td><td>Show this Shortcuts Cheat Sheet</td></tr>
+          <tr><td><kbd>?</kbd></td><td>Show Shortcuts Cheat Sheet</td></tr>
         </table>
       </div>
       <div class="modal-foot" style="text-align:right;">
