@@ -123,25 +123,25 @@ label { display: block; font-size: .88rem; color: var(--muted); margin-bottom: .
 .section-head h2 { font-size: 1.7rem; }
 .section-head a { color: var(--primary); font-size: .92rem; font-weight: 500; }
 .section-head a:hover { text-decoration: underline; text-underline-offset: 3px; }
-.topics { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 1.2rem; }
+.topics { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(230px, 45vw), 1fr)); gap: 1.2rem; }
 .topic { position: relative; display: block; border-radius: 16px; overflow: hidden; aspect-ratio: 3 / 2; box-shadow: var(--shadow); border: 1px solid var(--line); }
 .topic img { width: 100%; height: 100%; object-fit: cover; transition: transform .35s; }
 .topic:hover img { transform: scale(1.05); }
 .topic span { position: absolute; left: 0; right: 0; bottom: 0; padding: 2.2rem 1rem .8rem; color: #fff; font-family: var(--display); font-size: 1.2rem; font-weight: 650; background: linear-gradient(to top, rgba(4, 24, 19, .85), rgba(4, 24, 19, 0)); }
-.features { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; }
+.features { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 45vw), 1fr)); gap: 2rem; }
 .features img { width: 100%; height: auto; border-radius: 16px; border: 1px solid var(--line); margin-bottom: 1rem; }
 .features h3 { font-size: 1.2rem; margin-bottom: .4rem; }
 .features p { color: var(--muted); font-size: .95rem; }
-.cols3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2rem; }
+.cols3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 45vw), 1fr)); gap: 2rem; }
 .cols3 h3 { font-size: 1.2rem; margin-bottom: .4rem; }
 .cols3 p { color: var(--muted); font-size: .95rem; }
 .page-head { padding: 2.8rem 0 1.4rem; }
 .page-head h1 { font-size: clamp(2rem, 4.2vw, 2.8rem); }
 .page-head p { color: var(--muted); margin-top: .5rem; }
 .page-head a { color: var(--primary); }
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 2.4rem 1.6rem; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(170px, 43vw), 1fr)); gap: 2.4rem 1.6rem; }
 .toolbar { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; }
-.toolbar .search-box { flex: 1 1 320px; }
+.toolbar .search-box { flex: 1 1 min(320px, 100%); min-width: 0; }
 .toolbar select { width: auto; }
 .chips { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.3rem 0; }
 .chip { padding: .4rem .95rem; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); background: var(--surface); font: inherit; font-size: .9rem; font-weight: 500; cursor: pointer; }
@@ -170,11 +170,11 @@ label { display: block; font-size: .88rem; color: var(--muted); margin-bottom: .
 .actions select { width: auto; }
 
 /* ---------- Dashboard and tables ---------- */
-.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(150px, 43vw), 1fr)); gap: 1rem; }
 .stats div { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 1.1rem 1.3rem; box-shadow: var(--shadow); }
 .stats b { display: block; font-family: var(--display); font-size: 2rem; }
 .stats span { color: var(--muted); font-size: .88rem; }
-.progress-row { display: grid; grid-template-columns: 1fr 220px auto; gap: 1.2rem; align-items: center; padding: 1rem 0; border-bottom: 1px solid var(--line); }
+.progress-row { display: grid; grid-template-columns: 1fr min(220px, 40%) auto; gap: 1.2rem; align-items: center; padding: 1rem 0; border-bottom: 1px solid var(--line); }
 .progress-row small { color: var(--muted); }
 .table-wrap { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; font-size: .92rem; }
@@ -473,9 +473,22 @@ kbd { background: var(--surface-2); border: 1px solid var(--line); border-radius
   /* Shelf momentum scroll */
   .shelf { margin-top: 2rem; border-bottom-width: 8px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
 
+  /* Section headings */
+  .section { padding: 2rem 0 0; }
+  .section-head h2 { font-size: 1.3rem; }
+
   /* Topics: 2-column mobile layout */
   .topics { grid-template-columns: repeat(2, 1fr); gap: .75rem; }
-  .topic span { font-size: 1rem; padding: 1.4rem .6rem .5rem; }
+  .topic span { font-size: .95rem; padding: 1.4rem .6rem .5rem; }
+
+  /* Features and cols3: single column on mobile */
+  .features { grid-template-columns: 1fr; gap: 1.2rem; }
+  .cols3 { grid-template-columns: 1fr; gap: 1.2rem; }
+
+  /* Toolbar: stack on mobile */
+  .toolbar { flex-direction: column; align-items: stretch; }
+  .toolbar .search-box { width: 100%; flex-basis: auto; }
+  .toolbar select { width: 100%; }
 
   /* Books: 2-column mobile cards */
   .grid { grid-template-columns: repeat(2, 1fr); gap: 1.4rem .75rem; }
@@ -609,5 +622,34 @@ kbd { background: var(--surface-2); border: 1px solid var(--line); border-radius
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; scroll-behavior: auto !important; }
 }
+/* ---------- Extra-small phones (≤ 480px) ---------- */
+@media (max-width: 480px) {
+  .container { width: 96%; padding: 0; }
+  .hero h1 { font-size: clamp(1.7rem, 8vw, 2.2rem); }
+
+  /* Ensure 2-col grids stay on tiny phones */
+  .topics { grid-template-columns: repeat(2, 1fr); gap: .5rem; }
+  .grid   { grid-template-columns: repeat(2, 1fr); gap: 1rem .5rem; }
+  .stats  { grid-template-columns: repeat(2, 1fr); gap: .6rem; }
+
+  /* Single column layouts */
+  .features { grid-template-columns: 1fr; }
+  .cols3    { grid-template-columns: 1fr; }
+
+  /* Larger touch targets */
+  .btn { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+  .chip { padding: .5rem 1rem; }
+
+  /* Navbar brand: slightly smaller */
+  .brand { font-size: 1.1rem; }
+  .brand img { width: 28px; height: 28px; }
+
+  /* Tighter spacing */
+  .section { padding: 1.5rem 0 0; }
+  .page-head { padding: 1.8rem 0 1rem; }
+  .page-head h1 { font-size: clamp(1.7rem, 6vw, 2.2rem); }
+}
+
+
 
 
