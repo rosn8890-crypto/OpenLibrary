@@ -455,11 +455,11 @@ kbd { background: var(--surface-2); border: 1px solid var(--line); border-radius
 @keyframes slideInRight { from { transform: translateX(100%); } to { transform: translateX(0); } }
 
 /* ---------- Responsive Mobile Enhancements ---------- */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   /* Zoomed-in look on phones: every rem size grows by about 12% */
-  html { font-size: 18px; }
+  html { font-size: clamp(18px, 3.4vw, 26px); }
   /* Reader page keeps the original size so its toolbar fits on one row */
-  html:has(.reader-bar) { font-size: 16px; }
+  html:has(.reader-bar) { font-size: clamp(16px, 2.4vw, 20px); }
   #backLink { white-space: nowrap; flex-shrink: 0; }
   .container { width: 94%; padding: 0 4px; }
   .hero { padding-top: 1.8rem; }
@@ -484,7 +484,8 @@ kbd { background: var(--surface-2); border: 1px solid var(--line); border-radius
   .book-info .meta { font-size: .75rem; }
 
   /* Navbar mobile */
-  .nav-toggle { display: block; margin-left: auto; }
+  .nav-toggle { display: block; margin-left: auto; font-size: 16px; }
+  .brand { font-size: 22px; }
   #navLinks {
     display: none;
     position: fixed;
@@ -503,7 +504,7 @@ kbd { background: var(--surface-2); border: 1px solid var(--line); border-radius
   #navLinks.open { display: flex; }
   #navLinks > a {
     padding: .85rem 1rem;
-    font-size: 1.05rem;
+    font-size: 17px;
     border-radius: 10px;
     border: 1px solid var(--line);
   }
