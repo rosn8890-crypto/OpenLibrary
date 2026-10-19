@@ -2,7 +2,7 @@
    Enables offline reading, instant caching, and PWA standalone app support.
 */
 
-const CACHE_NAME = "openlibrary-app-v1";
+const CACHE_NAME = "openlibrary-app-v3";
 const STATIC_ASSETS = [
   "./",
   "./index.html",
